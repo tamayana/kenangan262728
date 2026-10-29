@@ -33,7 +33,6 @@ body{background:var(--black);color:var(--white);font-family:'Poppins',sans-serif
 .music .info div:first-child{font-size:12px;font-weight:600}
 .music .info div:last-child{font-size:10px;color:#64748b}
 .music button{width:36px;height:36px;border-radius:50%;background:var(--white);color:#000;border:none;font-size:14px}
-#ytWrap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .menu{display:flex;gap:8px;margin:20px 0;position:sticky;top:10px;z-index:5;background:rgba(2,6,23,0.8);backdrop-filter:blur(12px);padding:8px;border-radius:18px;border:1px solid #1e293b}
 .menu button{flex:1;padding:12px;border-radius:12px;border:1px solid #1e293b;background:transparent;color:#64748b;font-size:11px;letter-spacing:2px;font-weight:600}
 .menu button.active{background:var(--white);color:#000;border-color:var(--white)}
@@ -52,7 +51,7 @@ body{background:var(--black);color:var(--white);font-family:'Poppins',sans-serif
 </head>
 <body>
 <div id="particles"></div>
-<div id="ytWrap"><div id="ytPlayer"></div></div>
+<audio id="laguKita" loop preload="auto" src="https://raw.githubusercontent.com/tamayana/kenangan262728/main/satu-bulan.mp3"></audio>
 
 <div id="lock">
   <div class="lock-card">
@@ -73,7 +72,7 @@ body{background:var(--black);color:var(--white);font-family:'Poppins',sans-serif
 
   <div class="music">
     <img src="https://picsum.photos/seed/bernadya/100">
-    <div class="info"><div>Bernadya - Satu Bulan</div><div>Lagu kita • Klik play</div></div>
+    <div class="info"><div>Bernadya - Satu Bulan</div><div id="musicStatus">Lagu kita • Klik play</div></div>
     <button id="musicBtn" onclick="toggleMusic()">▶</button>
   </div>
 
@@ -94,35 +93,14 @@ body{background:var(--black);color:var(--white);font-family:'Poppins',sans-serif
 
 <script>
 const CONFIG = {
-  // password di-hash biar gak keliatan di GitHub - hash dari #Tamayana262728
-  _pHash: "8f5e3b2a9c1d4e6f7a0b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f",
   user: "tamayana",
   repo: "kenangan262728",
-  tglJadian: "2022-12-26",
-  youtubeId: "f2q2ZQHU9-w"
+  tglJadian: "2022-12-26"
 };
-
-// hash sederhana (bukan hash asli di atas, untuk demo aman - logic check asli di bawah di-obfuscate)
 function checkPass(input){
-  // password asli hanya Tama & Yana yang tau
-  const secret = atob("I1RhbWF5YW5hMjYyNzI4"); // ini base64, bukan plain text di code
+  const secret = atob("I1RhbWF5YW5hMjYyNzI4");
   return input === secret;
 }
-
-let player, isPlaying=false;
-function onYouTubeIframeAPIReady(){
-  player = new YT.Player('ytPlayer',{
-    height:'1',width:'1',videoId:CONFIG.youtubeId,
-    playerVars:{loop:1,playlist:CONFIG.youtubeId,playsinline:1},
-    events:{onReady:()=>{}}
-  });
-}
-function toggleMusic(){
-  if(!player) return alert('Tunggu loading lagu...');
-  if(isPlaying){player.pauseVideo(); document.getElementById('musicBtn').innerText='▶'; isPlaying=false}
-  else{player.playVideo(); document.getElementById('musicBtn').innerText='⏸'; isPlaying=true}
-}
-let tag=document.createElement('script'); tag.src="https://www.youtube.com/iframe_api"; document.head.appendChild(tag);
 
 for(let i=0;i<28;i++){let d=document.createElement('div');d.className='p';d.style.left=Math.random()*100+'vw';d.style.animationDuration=(6+Math.random()*8)+'s';d.style.animationDelay=Math.random()*6+'s';d.style.opacity=Math.random()*0.6;document.getElementById('particles').appendChild(d);}
 
@@ -149,6 +127,28 @@ function startCount(){
   upd(); setInterval(upd,60000);
 }
 
+let isPlaying=false;
+function toggleMusic(){
+  const audio=document.getElementById('laguKita');
+  const btn=document.getElementById('musicBtn');
+  const status=document.getElementById('musicStatus');
+  if(isPlaying){
+    audio.pause();
+    btn.innerText='▶';
+    status.innerText='Lagu kita • Klik play';
+    isPlaying=false;
+  } else {
+    audio.volume=1;
+    audio.play().then(()=>{
+      btn.innerText='⏸';
+      status.innerText='Memutar... Bernadya - Satu Bulan 💙';
+      isPlaying=true;
+    }).catch(e=>{
+      alert('Klik sekali lagi ya, iPhone butuh izin play');
+    });
+  }
+}
+
 function showTab(t){
   document.querySelectorAll('.menu button').forEach(b=>b.classList.remove('active'));
   document.getElementById('btn'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active');
@@ -168,7 +168,7 @@ async function loadFromGitHub(folder, tabId, isImg){
     const res=await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${folder}?t=${Date.now()}`);
     if(!res.ok) throw new Error();
     const files=await res.json();
-    const media=files.filter(f=>f.type==='file' && !f.name.startsWith('.') && f.name!=='list.json');
+    const media=files.filter(f=>f.type==='file' && !f.name.startsWith('.'));
     if(media.length===0){el.innerHTML=`<div class="empty">Belum ada ${folder}. Upload foto pertama kalian di GitHub ya 💙</div>`; return}
     el.innerHTML='';
     media.reverse().forEach(f=>{
@@ -195,7 +195,6 @@ async function loadSurat(){
     el.innerHTML=`<div class="surat-card"><div>Untuk Yana... Terima kasih sudah bersama sejak 26 Desember 2022. Semoga sampai tua nanti kita masih buka web ini bareng anak-anak kita. - Tama</div></div>`;
   }
 }
-// Enter untuk login
 document.getElementById('passInput').addEventListener('keypress',function(e){if(e.key==='Enter') unlock();});
 </script>
 </body>

@@ -3,199 +3,130 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tama & Yana - 262728</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,500&display=swap" rel="stylesheet">
+<title>Tama & Yana</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--blue:#3b82f6;--blue2:#1e3a8a;--white:#f8fafc;--black:#020617}
-body{background:var(--black);color:var(--white);font-family:'Poppins',sans-serif;overflow-x:hidden}
-#particles{position:fixed;inset:0;pointer-events:none;z-index:0}
-.p{position:absolute;width:1px;height:80px;background:linear-gradient(transparent,#3b82f633);animation:fall linear infinite}
-@keyframes fall{0%{transform:translateY(-100px)}100%{transform:translateY(110vh)}}
-#lock{position:fixed;inset:0;background:radial-gradient(ellipse at center,#0f172a 0%,#020617 70%);display:flex;justify-content:center;align-items:center;z-index:9999;padding:20px}
-.lock-card{background:rgba(15,23,42,0.9);backdrop-filter:blur(20px);border:1px solid #1e3a8a;border-radius:28px;padding:36px 28px;width:100%;max-width:360px;text-align:center;box-shadow:0 0 80px #3b82f620}
-.lock-card h1{font-family:'Cormorant Garamond';font-weight:300;font-style:italic;font-size:42px;color:#f8fafc;line-height:1}
-.lock-card h1 span{color:var(--blue);font-style:normal;font-weight:500}
-.lock-card p{font-size:11px;letter-spacing:3px;color:#64748b;margin:12px 0 20px}
-.lock-card input{width:100%;padding:14px;background:#020617;border:1px solid #1e293b;border-radius:14px;color:#fff;text-align:center;letter-spacing:1px;outline:none}
-.lock-card button{width:100%;margin-top:14px;padding:14px;background:var(--white);color:var(--black);border:none;border-radius:14px;font-weight:600;letter-spacing:1px}
-.lock-card .hint{font-size:10px;color:#334155;letter-spacing:0; margin-top:14px;line-height:1.5}
-#main{display:none;position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:18px}
-.header{text-align:center;padding:28px 0 18px}
-.header h1{font-family:'Cormorant Garamond';font-weight:300;font-style:italic;font-size:48px;color:#f8fafc}
-.header h1 b{font-weight:500;font-style:normal;color:var(--blue)}
-.header .date{font-size:11px;letter-spacing:4px;color:#64748b;margin-top:6px}
-.header .count{margin-top:16px;display:inline-block;padding:10px 18px;border:1px solid #1e293b;border-radius:100px;background:rgba(15,23,42,0.6);font-size:11px;color:#94a3b8}
-.header .count b{color:#f8fafc}
-.music{margin:18px auto;max-width:480px;background:rgba(15,23,42,0.6);border:1px solid #1e293b;border-radius:18px;padding:10px 14px;display:flex;align-items:center;gap:12px}
-.music img{width:44px;height:44px;border-radius:10px;object-fit:cover}
-.music .info{flex:1;text-align:left}
-.music .info div:first-child{font-size:12px;font-weight:600}
-.music .info div:last-child{font-size:10px;color:#64748b}
-.music button{width:36px;height:36px;border-radius:50%;background:var(--white);color:#000;border:none;font-size:14px}
-.menu{display:flex;gap:8px;margin:20px 0;position:sticky;top:10px;z-index:5;background:rgba(2,6,23,0.8);backdrop-filter:blur(12px);padding:8px;border-radius:18px;border:1px solid #1e293b}
-.menu button{flex:1;padding:12px;border-radius:12px;border:1px solid #1e293b;background:transparent;color:#64748b;font-size:11px;letter-spacing:2px;font-weight:600}
-.menu button.active{background:var(--white);color:#000;border-color:var(--white)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(min-width:700px){.grid{grid-template-columns:1fr 1fr 1fr}}
-.card{background:#0f172a;border:1px solid #1e293b;border-radius:18px;overflow:hidden}
-.card img,.card video{width:100%;height:240px;object-fit:cover;display:block;background:#020617}
-.card .cap{padding:10px 12px}
-.card .cap span{font-size:9px;color:#475569;letter-spacing:1px}
-.surat-card{background:linear-gradient(180deg,#0f172a,#020617);border:1px solid #1e3a8a;padding:22px;border-radius:18px;margin-bottom:12px}
-.surat-card div{font-family:'Cormorant Garamond';font-size:18px;font-style:italic;line-height:1.6;color:#cbd5e1;white-space:pre-wrap}
-.howto{margin-top:26px;background:#0f172a;border:1px dashed #334155;border-radius:16px;padding:16px;font-size:11px;color:#94a3b8;line-height:1.7}
-.howto b{color:#fff}
-.empty{text-align:center;padding:40px;color:#475569;font-size:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0f1e;color:white;font-family:sans-serif;min-height:100vh;padding:20px 15px;display:flex;flex-direction:column;align-items:center}
+h1{font-family:'Times New Roman',serif;font-style:italic;font-weight:300;font-size:42px;margin-top:20px}
+h1 span{color:#6da3ff}
+.sub{letter-spacing:4px;font-size:11px;color:#8a9bb5;margin:8px 0 15px}
+.badge{border:1px solid #22304d;background:#111a2e;border-radius:30px;padding:8px 18px;font-size:12px;color:#8a9bb5;margin-bottom:20px}
+.badge b{color:white}
+.player{width:100%;max-width:480px;background:#111a2e;border:1px solid #22304d;border-radius:16px;padding:12px;display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.player img{width:48px;height:48px;border-radius:10px;object-fit:cover}
+.player .info{flex:1}
+.player .info strong{font-size:14px;display:block}
+.player .info small{font-size:11px;color:#8a9bb5}
+.player button{width:40px;height:40px;border-radius:50%;border:none;background:white;font-size:16px;cursor:pointer}
+.tabs{width:100%;max-width:480px;display:flex;gap:10px;margin-bottom:18px}
+.tabs button{flex:1;padding:12px;border-radius:12px;border:1px solid #22304d;background:#111a2e;color:#8a9bb5;font-weight:700;letter-spacing:2px;font-size:12px;cursor:pointer}
+.tabs button.active{background:white;color:#0a0f1e;border-color:white}
+.grid{width:100%;max-width:480px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:#111a2e;border:1px solid #22304d;border-radius:18px;overflow:hidden;position:relative;aspect-ratio:4/5}
+.card img,.card video{width:100%;height:100%;object-fit:cover;display:block}
+.card .name{position:absolute;bottom:0;left:0;right:0;padding:8px;background:linear-gradient(transparent,rgba(0,0,0,0.8));font-size:10px;color:#6b7a94;word-break:break-all}
+.card.play::after{content:'▶';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:rgba(0,0,0,0.5);border-radius:50%;display:grid;place-items:center;font-size:20px}
+.surat-box{width:100%;max-width:480px;background:#111a2e;border:1px solid #22304d;border-radius:18px;padding:20px;white-space:pre-wrap;line-height:1.6}
+.how{width:100%;max-width:480px;margin-top:18px;border:1px dashed #33405e;border-radius:14px;padding:14px;font-size:11px;color:#8a9bb5;line-height:1.5}
+.footer{margin-top:20px;background:#d9dde6;color:#0a0f1e;border-radius:20px;padding:8px 18px;font-size:11px;font-weight:600}
 </style>
 </head>
 <body>
-<div id="particles"></div>
-<audio id="laguKita" loop preload="auto" src="https://raw.githubusercontent.com/tamayana/kenangan262728/main/satu-bulan.mp3"></audio>
 
-<div id="lock">
-  <div class="lock-card">
-    <h1>Tama <span>&</span> Yana</h1>
-    <p>KENANGAN 262728</p>
-    <input type="password" id="passInput" placeholder="Masukkan password...">
-    <button onclick="unlock()">BUKA KENANGAN</button>
-    <div class="hint">Sejak 26 Des 2022 • Private & Aman<br>Hanya untuk yang punya akses</div>
-  </div>
+<h1>Tama <span>&</span> Yana</h1>
+<div class="sub">SEJAK 26 DESEMBER 2022</div>
+<div class="badge" id="hari"></div>
+
+<div class="player">
+<img src="https://i.scdn.co/image/ab67616d0000b273d8d1c5f5d3e5e8e5c5d5e5e5" id="cover" alt="">
+<div class="info"><strong>Bernadya - Satu Bulan</strong><small>Memutar... Bernadya - Satu Bulan 💙</small></div>
+<button id="playBtn">⏸️</button>
+<audio id="audio" loop src="satu-bulan.mp3"></audio>
 </div>
 
-<div id="main">
-  <div class="header">
-    <h1>Tama <b>&</b> Yana</h1>
-    <div class="date">SEJAK 26 DESEMBER 2022</div>
-    <div class="count" id="countText">Menghitung hari...</div>
-  </div>
-
-  <div class="music">
-    <img src="https://picsum.photos/seed/bernadya/100">
-    <div class="info"><div>Bernadya - Satu Bulan</div><div id="musicStatus">Lagu kita • Klik play</div></div>
-    <button id="musicBtn" onclick="toggleMusic()">▶</button>
-  </div>
-
-  <div class="menu">
-    <button id="btnFoto" class="active" onclick="showTab('foto')">FOTO</button>
-    <button id="btnVideo" onclick="showTab('video')">VIDEO</button>
-    <button id="btnSurat" onclick="showTab('surat')">SURAT</button>
-  </div>
-
-  <div id="tabFoto" class="grid"></div>
-  <div id="tabVideo" class="grid" style="display:none"></div>
-  <div id="tabSurat" style="display:none"></div>
-
-  <div class="howto">
-    <b>CARA UPLOAD:</b><br>1. Buka github.com/tamayana/kenangan262728 → folder foto/video → Add file → Upload → Commit<br>2. Refresh web ini, foto langsung muncul abadi!
-  </div>
+<div class="tabs">
+<button id="btnFoto" class="active" onclick="showTab('foto')">FOTO</button>
+<button id="btnVideo" onclick="showTab('video')">VIDEO</button>
+<button id="btnSurat" onclick="showTab('surat')">SURAT</button>
 </div>
+
+<div id="fotoGrid" class="grid"></div>
+<div id="videoGrid" class="grid" style="display:none"></div>
+<div id="suratBox" class="surat-box" style="display:none"></div>
+
+<div class="how">
+<b>CARA UPLOAD:</b><br>
+1. Buka github.com/tamayana/kenangan262728 → folder foto/video → Add file → Upload → Commit<br>
+2. Refresh web ini, foto langsung muncul abadi!
+</div>
+
+<div class="footer">tamayana.github.io</div>
 
 <script>
-const CONFIG = {
-  user: "tamayana",
-  repo: "kenangan262728",
-  tglJadian: "2022-12-26"
-};
-function checkPass(input){
-  const secret = atob("I1RhbWF5YW5hMjYyNzI4");
-  return input === secret;
+// HITUNG HARI
+let start = new Date('2022-12-26');
+let now = new Date();
+let diff = Math.floor((now - start)/(1000*60*60*24));
+let tahun = Math.floor(diff/365);
+let bulan = Math.floor((diff%365)/30);
+document.getElementById('hari').innerHTML = `${diff} HARI • ${tahun} Tahun ${bulan} Bulan Bersama`;
+
+// AUDIO
+let audio = document.getElementById('audio');
+let btn = document.getElementById('playBtn');
+let playing = false;
+btn.onclick = ()=>{
+  if(playing){audio.pause();btn.textContent='▶️';playing=false}
+  else{audio.play();btn.textContent='⏸️';playing=true}
 }
 
-for(let i=0;i<28;i++){let d=document.createElement('div');d.className='p';d.style.left=Math.random()*100+'vw';d.style.animationDuration=(6+Math.random()*8)+'s';d.style.animationDelay=Math.random()*6+'s';d.style.opacity=Math.random()*0.6;document.getElementById('particles').appendChild(d);}
+// LOAD FOTO & VIDEO OTOMATIS DARI GITHUB API
+async function loadGaleri(){
+  let res = await fetch('https://api.github.com/repos/tamayana/kenangan262728/contents/foto');
+  let files = await res.json();
+  let grid = document.getElementById('fotoGrid');
+  grid.innerHTML='';
+  files.forEach(f=>{
+    if(f.name.match(/\.(jpg|jpeg|png|heic)$/i)){
+      grid.innerHTML+=`<div class="card"><img src="${f.download_url}" loading="lazy"><div class="name">${f.name}</div></div>`;
+    }
+  });
+  let res2 = await fetch('https://api.github.com/repos/tamayana/kenangan262728/contents/video');
+  let files2 = await res2.json();
+  let grid2 = document.getElementById('videoGrid');
+  grid2.innerHTML='';
+  files2.forEach(f=>{
+    if(f.name.match(/\.(mp4|mov|webm)$/i)){
+      grid2.innerHTML+=`<div class="card play"><video src="${f.download_url}" preload="metadata" muted playsinline></video><div class="name">${f.name}</div></div>`;
+    }
+  });
+}
+loadGaleri();
 
-function unlock(){
-  const val=document.getElementById('passInput').value;
-  if(checkPass(val)){
-    document.getElementById('lock').style.display='none';
-    document.getElementById('main').style.display='block';
-    startCount(); loadAll();
-  } else {
-    alert('Password salah! Hanya Tama & Yana yang bisa buka 🥺');
-    document.getElementById('passInput').value='';
+// LOAD SURAT
+async function loadSurat(){
+  let r = await fetch('surat.json?v='+Date.now());
+  let data = await r.json();
+  let box = document.getElementById('suratBox');
+  if(data.length>0){
+    box.innerHTML=`<h3 style="margin-bottom:12px">${data[0].judul}</h3><p>${data[0].teks}</p>`;
   }
 }
-
-function startCount(){
-  const start=new Date(CONFIG.tglJadian);
-  function upd(){
-    const now=new Date(); const diff=now-start;
-    const hari=Math.floor(diff/(1000*60*60*24));
-    const tahun=Math.floor(hari/365); const sisaHari=hari%365; const bulan=Math.floor(sisaHari/30);
-    document.getElementById('countText').innerHTML=`<b>${hari}</b> HARI • <b>${tahun} Tahun ${bulan} Bulan</b> Bersama`;
-  }
-  upd(); setInterval(upd,60000);
-}
-
-let isPlaying=false;
-function toggleMusic(){
-  const audio=document.getElementById('laguKita');
-  const btn=document.getElementById('musicBtn');
-  const status=document.getElementById('musicStatus');
-  if(isPlaying){
-    audio.pause();
-    btn.innerText='▶';
-    status.innerText='Lagu kita • Klik play';
-    isPlaying=false;
-  } else {
-    audio.volume=1;
-    audio.play().then(()=>{
-      btn.innerText='⏸';
-      status.innerText='Memutar... Bernadya - Satu Bulan 💙';
-      isPlaying=true;
-    }).catch(e=>{
-      alert('Klik sekali lagi ya, iPhone butuh izin play');
-    });
-  }
-}
+loadSurat();
 
 function showTab(t){
-  document.querySelectorAll('.menu button').forEach(b=>b.classList.remove('active'));
-  document.getElementById('btn'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active');
-  document.getElementById('tabFoto').style.display=t==='foto'?'grid':'none';
-  document.getElementById('tabVideo').style.display=t==='video'?'grid':'none';
-  document.getElementById('tabSurat').style.display=t==='surat'?'block':'none';
-}
-
-async function loadAll(){
-  await loadFromGitHub('foto','tabFoto',true);
-  await loadFromGitHub('video','tabVideo',false);
-  await loadSurat();
-}
-async function loadFromGitHub(folder, tabId, isImg){
-  const el=document.getElementById(tabId);
-  try{
-    const res=await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${folder}?t=${Date.now()}`);
-    if(!res.ok) throw new Error();
-    const files=await res.json();
-    const media=files.filter(f=>f.type==='file' && !f.name.startsWith('.'));
-    if(media.length===0){el.innerHTML=`<div class="empty">Belum ada ${folder}. Upload foto pertama kalian di GitHub ya 💙</div>`; return}
-    el.innerHTML='';
-    media.reverse().forEach(f=>{
-      const url=`https://raw.githubusercontent.com/${CONFIG.user}/${CONFIG.repo}/main/${folder}/${encodeURIComponent(f.name)}`;
-      if(isImg){el.innerHTML+=`<div class="card"><img src="${url}" loading="lazy"><div class="cap"><span>${f.name}</span></div></div>`;}
-      else {el.innerHTML+=`<div class="card"><video src="${url}" controls preload="metadata"></video><div class="cap"><span>${f.name}</span></div></div>`;}
+  document.getElementById('fotoGrid').style.display = t==='foto'?'grid':'none';
+  document.getElementById('videoGrid').style.display = t==='video'?'grid':'none';
+  document.getElementById('suratBox').style.display = t==='surat'?'block':'none';
+  document.getElementById('btnFoto').className = t==='foto'?'active':'';
+  document.getElementById('btnVideo').className = t==='video'?'active':'';
+  document.getElementById('btnSurat').className = t==='surat'?'active':'';
+  if(t==='video'){
+    document.querySelectorAll('#videoGrid video').forEach(v=>{
+      v.addEventListener('loadedmetadata',()=>{v.currentTime=0.5});
     });
-  }catch(e){
-    el.innerHTML=`<div class="empty">Folder ${folder} belum ada isinya. Upload foto pertama!</div>`;
   }
 }
-async function loadSurat(){
-  const el=document.getElementById('tabSurat');
-  try{
-    const res=await fetch(`https://raw.githubusercontent.com/${CONFIG.user}/${CONFIG.repo}/main/surat.json?t=${Date.now()}`);
-    if(!res.ok) throw new Error();
-    const data=await res.json();
-    if(data.length===0) throw new Error();
-    el.innerHTML='';
-    data.reverse().forEach(s=>{
-      el.innerHTML+=`<div class="surat-card"><div>${s.teks}</div><div style="margin-top:12px;font-family:Poppins;font-size:10px;color:#475569;letter-spacing:2px">${s.judul||''}</div></div>`;
-    });
-  }catch(e){
-    el.innerHTML=`<div class="surat-card"><div>Untuk Yana... Terima kasih sudah bersama sejak 26 Desember 2022. Semoga sampai tua nanti kita masih buka web ini bareng anak-anak kita. - Tama</div></div>`;
-  }
-}
-document.getElementById('passInput').addEventListener('keypress',function(e){if(e.key==='Enter') unlock();});
 </script>
 </body>
 </html>

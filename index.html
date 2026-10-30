@@ -118,14 +118,24 @@ function unlock(){
 }
 
 function startCount(){
-  const start=new Date(CONFIG.tglJadian);
+  const start=new Date(CONFIG.tglJadian + "T00:00:00");
   function upd(){
-    const now=new Date(); const diff=now-start;
+    const now=new Date();
+    const diff=now-start;
     const hari=Math.floor(diff/(1000*60*60*24));
-    const tahun=Math.floor(hari/365); const sisaHari=hari%365; const bulan=Math.floor(sisaHari/30);
+    const tahun=Math.floor(hari/365); 
+    const sisaHari=hari%365; 
+    const bulan=Math.floor(sisaHari/30);
+    const sisaBulan=sisaHari%30;
+    
+    // Format persis kayak screenshot lu: 1404 HARI • 3 Tahun 10 Bulan Bersama
     document.getElementById('countText').innerHTML=`<b>${hari}</b> HARI • <b>${tahun} Tahun ${bulan} Bulan</b> Bersama`;
+    
+    // Kalo mau yang ada detail harinya juga (opsional, hapus kalo gak mau):
+    // document.getElementById('countText').innerHTML=`<b>${hari}</b> HARI • <b>${tahun} Tahun ${bulan} Bulan ${sisaBulan} Hari</b> Bersama`;
   }
-  upd(); setInterval(upd,60000);
+  upd(); 
+  setInterval(upd, 1000); // update tiap 1 detik, jadi keliatan hidup
 }
 
 let isPlaying=false;

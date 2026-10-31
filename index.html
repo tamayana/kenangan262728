@@ -62,7 +62,7 @@ body{background:var(--black);color:var(--white);font-family:'Poppins',sans-serif
 <div id="lock">
   <div class="lock-card">
     <h1>Tama <span>&</span> Yana</h1>
-    <p>KENANGAN 262728</p>
+    <p>KENANGAN KITA BERDUA🫂</p>
     <input type="password" id="passInput" placeholder="Masukkan password...">
     <button onclick="unlock()">BUKA KENANGAN</button>
     <div class="hint">Sejak 26 Des 2022 • Private & Aman<br>Hanya untuk yang punya akses</div>
@@ -91,8 +91,8 @@ body{background:var(--black);color:var(--white);font-family:'Poppins',sans-serif
     <b>CARA UPLOAD:</b><br>1. Buka github.com/tamayana/kenangan262728 → folder foto/video → Add file → Upload → Commit<br>2. Refresh web ini, foto langsung muncul abadi!
   </div>
 </div>
-<div id="lightbox" onclick="closeLightbox(event)">
-  <button class="lb-close" onclick="closeLightbox(event)">✕</button>
+<div id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
   <div class="lb-inner">
     <img id="lb-img" style="display:none">
     <video id="lb-video" style="display:none" controls playsinline controlsList="nodownload"></video>
@@ -100,107 +100,18 @@ body{background:var(--black);color:var(--white);font-family:'Poppins',sans-serif
   <div class="lb-cap" id="lb-cap"></div>
 </div>
 <script>
-const CONFIG = {
-  user: "tamayana",
-  repo: "kenangan262728",
-  tglJadian: "2022-12-26"
-};
-function checkPass(input){
-  const secret = atob("I1RhbWF5YW5hMjYyNzI4");
-  return input === secret;
-}
+const CONFIG = { user: "tamayana", repo: "kenangan262728", tglJadian: "2022-12-26" };
+function checkPass(input){ const secret = atob("I1RhbWF5YW5hMjYyNzI4"); return input === secret; }
 for(let i=0;i<28;i++){let d=document.createElement('div');d.className='p';d.style.left=Math.random()*100+'vw';d.style.animationDuration=(6+Math.random()*8)+'s';d.style.animationDelay=Math.random()*6+'s';d.style.opacity=Math.random()*0.6;document.getElementById('particles').appendChild(d);}
-function unlock(){
-  const val=document.getElementById('passInput').value;
-  if(checkPass(val)){
-    document.getElementById('lock').style.display='none';
-    document.getElementById('main').style.display='block';
-    startCount(); loadAll();
-  } else {
-    alert('Password salah!');
-    document.getElementById('passInput').value='';
-  }
-}
-function startCount(){
-  const start=new Date(CONFIG.tglJadian + "T00:00:00");
-  function upd(){
-    const now=new Date();
-    const diff=now-start;
-    const hari=Math.floor(diff/(1000*60*60*24));
-    const tahun=Math.floor(hari/365); 
-    const sisaHari=hari%365; 
-    const bulan=Math.floor(sisaHari/30);
-    document.getElementById('countText').innerHTML=`<b>${hari}</b> HARI • <b>${tahun} Tahun ${bulan} Bulan</b> Bersama`;
-  }
-  upd(); 
-  setInterval(upd, 1000);
-}
+function unlock(){ const val=document.getElementById('passInput').value; if(checkPass(val)){ document.getElementById('lock').style.display='none'; document.getElementById('main').style.display='block'; startCount(); loadAll(); } else { alert('Password salah!'); document.getElementById('passInput').value=''; } }
+function startCount(){ const start=new Date(CONFIG.tglJadian + "T00:00:00"); function upd(){ const now=new Date(); const diff=now-start; const hari=Math.floor(diff/(1000*60*60*24)); const tahun=Math.floor(hari/365); const sisaHari=hari%365; const bulan=Math.floor(sisaHari/30); document.getElementById('countText').innerHTML=`<b>${hari}</b> HARI • <b>${tahun} Tahun ${bulan} Bulan</b> Bersama`; } upd(); setInterval(upd, 1000); }
 let isPlaying=false;
-function toggleMusic(){
-  const audio=document.getElementById('laguKita');
-  const btn=document.getElementById('musicBtn');
-  const status=document.getElementById('musicStatus');
-  if(isPlaying){
-    audio.pause();
-    btn.innerText='▶';
-    status.innerText='Lagu kita • Klik play';
-    isPlaying=false;
-  } else {
-    audio.volume=1;
-    audio.play().then(()=>{
-      btn.innerText='⏸';
-      status.innerText='Memutar... Raim laode - Komang 💙';
-      isPlaying=true;
-    }).catch(e=>{
-      alert('Klik sekali lagi ya, iPhone butuh izin play');
-    });
-  }
-}
-function showTab(t){
-  document.querySelectorAll('.menu button').forEach(b=>b.classList.remove('active'));
-  document.getElementById('btn'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active');
-  document.getElementById('tabFoto').style.display=t==='foto'?'grid':'none';
-  document.getElementById('tabVideo').style.display=t==='video'?'grid':'none';
-  document.getElementById('tabSurat').style.display=t==='surat'?'block':'none';
-}
-function openImage(url, name){
-  const lb=document.getElementById('lightbox');
-  const img=document.getElementById('lb-img');
-  const vid=document.getElementById('lb-video');
-  const cap=document.getElementById('lb-cap');
-  vid.pause(); vid.style.display='none';
-  img.src=url; img.style.display='block';
-  cap.textContent=name||'';
-  lb.classList.add('active');
-  document.body.style.overflow='hidden';
-}
-function openVideo(url, name){
-  const lb=document.getElementById('lightbox');
-  const img=document.getElementById('lb-img');
-  const vid=document.getElementById('lb-video');
-  const cap=document.getElementById('lb-cap');
-  img.style.display='none';
-  vid.src=url; vid.style.display='block'; vid.currentTime=0; vid.play();
-  cap.textContent=name||'';
-  lb.classList.add('active');
-  document.body.style.overflow='hidden';
-}
-function closeLightbox(e){
-  const lb=document.getElementById('lightbox');
-  const vid=document.getElementById('lb-video');
-  if(e && e.target && e.target.closest && e.target.closest('.lb-inner') && e.target.id!=='lb-img' && e.target.id!=='lb-video'){
-    return;
-  }
-  vid.pause();
-  lb.classList.remove('active');
-  document.body.style.overflow='';
-}
-document.addEventListener('keydown', function(ev){ if(ev.key==='Escape'){ closeLightbox(ev); } });
-async function loadAll(){
-  await loadFromGitHub('foto','tabFoto',true);
-  await loadFromGitHub('video','tabVideo',false);
-  await loadSurat();
-}
+function toggleMusic(){ const audio=document.getElementById('laguKita'); const btn=document.getElementById('musicBtn'); const status=document.getElementById('musicStatus'); if(isPlaying){ audio.pause(); btn.innerText='▶'; status.innerText='Lagu kita • Klik play'; isPlaying=false; } else { audio.volume=1; audio.play().then(()=>{ btn.innerText='⏸'; status.innerText='Memutar... Raim laode - Komang 💙'; isPlaying=true; }).catch(e=>{ alert('Klik sekali lagi ya, iPhone butuh izin play'); }); } }
+function showTab(t){ document.querySelectorAll('.menu button').forEach(b=>b.classList.remove('active')); document.getElementById('btn'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active'); document.getElementById('tabFoto').style.display=t==='foto'?'grid':'none'; document.getElementById('tabVideo').style.display=t==='video'?'grid':'none'; document.getElementById('tabSurat').style.display=t==='surat'?'block':'none'; }
+function openImage(url, name){ const lb=document.getElementById('lightbox'); const img=document.getElementById('lb-img'); const vid=document.getElementById('lb-video'); const cap=document.getElementById('lb-cap'); vid.pause(); vid.style.display='none'; img.src=url; img.style.display='block'; cap.textContent=name||''; lb.classList.add('active'); document.body.style.overflow='hidden'; }
+function openVideo(url, name){ const lb=document.getElementById('lightbox'); const img=document.getElementById('lb-img'); const vid=document.getElementById('lb-video'); const cap=document.getElementById('lb-cap'); img.style.display='none'; vid.src=url; vid.style.display='block'; vid.currentTime=0; vid.play(); cap.textContent=name||''; lb.classList.add('active'); document.body.style.overflow='hidden'; }
+function closeLightbox(){ const lb=document.getElementById('lightbox'); const vid=document.getElementById('lb-video'); vid.pause(); lb.classList.remove('active'); document.body.style.overflow=''; }
+async function loadAll(){ await loadFromGitHub('foto','tabFoto',true); await loadFromGitHub('video','tabVideo',false); await loadSurat(); }
 async function loadFromGitHub(folder, tabId, isImg){
   const el=document.getElementById(tabId);
   try{
@@ -219,9 +130,7 @@ async function loadFromGitHub(folder, tabId, isImg){
         el.innerHTML+=`<div class="card" onclick="openVideo('${url}', '${safeName}')"><video src="${url}" preload="metadata" muted playsinline disablepictureinpicture onloadedmetadata="this.currentTime=0.3" onseeked="this.pause()" style="cursor:zoom-in;pointer-events:none"></video><div class="play-icon">▶</div><div class="cap"><span>${f.name}</span></div></div>`;
       }
     });
-  }catch(e){
-    el.innerHTML=`<div class="empty">Folder ${folder} belum ada isinya. Upload foto pertama!</div>`;
-  }
+  }catch(e){ el.innerHTML=`<div class="empty">Folder ${folder} belum ada isinya. Upload foto pertama!</div>`; }
 }
 async function loadSurat(){
   const el=document.getElementById('tabSurat');
@@ -231,12 +140,8 @@ async function loadSurat(){
     const data=await res.json();
     if(data.length===0) throw new Error();
     el.innerHTML='';
-    data.reverse().forEach(s=>{
-      el.innerHTML+=`<div class="surat-card"><div>${s.teks}</div><div style="margin-top:12px;font-family:Poppins;font-size:10px;color:#475569;letter-spacing:2px">${s.judul||''}</div></div>`;
-    });
-  }catch(e){
-    el.innerHTML=`<div class="surat-card"><div>Untuk Yana... Terima kasih sudah bersama sejak 26 Desember 2022. Semoga sampai tua nanti kita masih buka web ini bareng anak-anak kita. - Tama</div></div>`;
-  }
+    data.reverse().forEach(s=>{ el.innerHTML+=`<div class="surat-card"><div>${s.teks}</div><div style="margin-top:12px;font-family:Poppins;font-size:10px;color:#475569;letter-spacing:2px">${s.judul||''}</div></div>`; });
+  }catch(e){ el.innerHTML=`<div class="surat-card"><div>Untuk Yana... Terima kasih sudah bersama sejak 26 Desember 2022. Semoga sampai tua nanti kita masih buka web ini bareng anak-anak kita. - Tama</div></div>`; }
 }
 document.getElementById('passInput').addEventListener('keypress',function(e){if(e.key==='Enter') unlock();});
 </script>

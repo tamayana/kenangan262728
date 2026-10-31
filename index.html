@@ -59,7 +59,7 @@ body{background:var(--black);color:var(--white);font-family:'Poppins',sans-serif
 </head>
 <body>
 <div id="particles"></div>
-<audio id="laguKita" loop preload="auto" src="komang.mp3"></audio>
+<audio id="laguKita" loop preload="auto" src="pilihan-hatiku.mp3"></audio>
 
 <div id="lock">
   <div class="lock-card">
@@ -80,7 +80,7 @@ body{background:var(--black);color:var(--white);font-family:'Poppins',sans-serif
 
   <div class="music">
     <img src="https://picsum.photos/seed/komang/100">
-    <div class="info"><div>Raim laode - Komang</div><div id="musicStatus">Lagu kita • Klik play</div></div>
+    <div class="info"><div>Lavina - pilihan hatiku🫂</div><div id="musicStatus">Lagu kita • Klik play</div></div>
     <button id="musicBtn" onclick="toggleMusic()">▶</button>
   </div>
 
@@ -156,7 +156,7 @@ function toggleMusic(){
   if(isPlaying){
     audio.pause(); btn.innerText='▶'; status.innerText='Lagu kita • Klik play'; isPlaying=false;
   } else {
-    audio.volume=1; audio.play().then(()=>{btn.innerText='⏸'; status.innerText='Memutar... Raim laode - Komang 💙'; isPlaying=true;}).catch(()=>{alert('Klik sekali lagi ya');});
+    audio.volume=1; audio.play().then(()=>{btn.innerText='⏸'; status.innerText='Memutar... Lavina - pilihan hatiku🫂'; isPlaying=true;}).catch(()=>{alert('Klik sekali lagi ya');});
   }
 }
 

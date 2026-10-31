@@ -48,12 +48,17 @@ body{background:var(--black);color:var(--white);font-family:'Poppins',sans-serif
 .howto{margin-top:26px;background:#0f172a;border:1px dashed #334155;border-radius:16px;padding:16px;font-size:11px;color:#94a3b8;line-height:1.7}
 .howto b{color:#fff}
 .empty{text-align:center;padding:40px;color:#475569;font-size:12px}
+#lightbox{position:fixed;inset:0;background:rgba(2,6,23,0.92);backdrop-filter:blur(18px);display:none;justify-content:center;align-items:center;z-index:10000;padding:16px}
+#lightbox.active{display:flex}
+#lightbox .lb-inner{position:relative;width:100%;max-width:900px;max-height:92vh;display:flex;justify-content:center;align-items:center}
+#lightbox img,#lightbox video{max-width:100%;max-height:92vh;width:auto;height:auto;border-radius:16px;box-shadow:0 0 60px rgba(59,130,246,0.3);background:#020617}
+#lightbox .lb-close{position:fixed;top:14px;right:14px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.9);color:#000;border:none;font-size:18px;font-weight:700;display:grid;place-items:center;z-index:10001}
+#lightbox .lb-cap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,0.8);border:1px solid #1e293b;padding:8px 14px;border-radius:100px;font-size:10px;color:#94a3b8;letter-spacing:1px;max-width:90vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
 <div id="particles"></div>
 <audio id="laguKita" loop preload="auto" src="https://raw.githubusercontent.com/tamayana/kenangan262728/main/komang.mp3"></audio>
-
 <div id="lock">
   <div class="lock-card">
     <h1>Tama <span>&</span> Yana</h1>
@@ -63,35 +68,37 @@ body{background:var(--black);color:var(--white);font-family:'Poppins',sans-serif
     <div class="hint">Sejak 26 Des 2022 • Private & Aman<br>Hanya untuk yang punya akses</div>
   </div>
 </div>
-
 <div id="main">
   <div class="header">
     <h1>Tama <b>&</b> Yana</h1>
     <div class="date">SEJAK 26 DESEMBER 2022</div>
     <div class="count" id="countText">Menghitung hari...</div>
   </div>
-
   <div class="music">
     <img src="https://picsum.photos/seed/bernadya/100">
     <div class="info"><div>Raim laode - komang</div><div id="musicStatus">Lagu kita • Klik play</div></div>
     <button id="musicBtn" onclick="toggleMusic()">▶</button>
   </div>
-
   <div class="menu">
     <button id="btnFoto" class="active" onclick="showTab('foto')">FOTO</button>
     <button id="btnVideo" onclick="showTab('video')">VIDEO</button>
     <button id="btnSurat" onclick="showTab('surat')">SURAT</button>
   </div>
-
   <div id="tabFoto" class="grid"></div>
   <div id="tabVideo" class="grid" style="display:none"></div>
   <div id="tabSurat" style="display:none"></div>
-
   <div class="howto">
     <b>CARA UPLOAD:</b><br>1. Buka github.com/tamayana/kenangan262728 → folder foto/video → Add file → Upload → Commit<br>2. Refresh web ini, foto langsung muncul abadi!
   </div>
 </div>
-
+<div id="lightbox" onclick="closeLightbox(event)">
+  <button class="lb-close" onclick="closeLightbox(event)">✕</button>
+  <div class="lb-inner">
+    <img id="lb-img" style="display:none">
+    <video id="lb-video" style="display:none" controls playsinline controlsList="nodownload"></video>
+  </div>
+  <div class="lb-cap" id="lb-cap"></div>
+</div>
 <script>
 const CONFIG = {
   user: "tamayana",
@@ -102,9 +109,7 @@ function checkPass(input){
   const secret = atob("I1RhbWF5YW5hMjYyNzI4");
   return input === secret;
 }
-
 for(let i=0;i<28;i++){let d=document.createElement('div');d.className='p';d.style.left=Math.random()*100+'vw';d.style.animationDuration=(6+Math.random()*8)+'s';d.style.animationDelay=Math.random()*6+'s';d.style.opacity=Math.random()*0.6;document.getElementById('particles').appendChild(d);}
-
 function unlock(){
   const val=document.getElementById('passInput').value;
   if(checkPass(val)){
@@ -116,7 +121,6 @@ function unlock(){
     document.getElementById('passInput').value='';
   }
 }
-
 function startCount(){
   const start=new Date(CONFIG.tglJadian + "T00:00:00");
   function upd(){
@@ -126,18 +130,11 @@ function startCount(){
     const tahun=Math.floor(hari/365); 
     const sisaHari=hari%365; 
     const bulan=Math.floor(sisaHari/30);
-    const sisaBulan=sisaHari%30;
-    
-    // Format persis kayak screenshot lu: 1404 HARI • 3 Tahun 10 Bulan Bersama
     document.getElementById('countText').innerHTML=`<b>${hari}</b> HARI • <b>${tahun} Tahun ${bulan} Bulan</b> Bersama`;
-    
-    // Kalo mau yang ada detail harinya juga (opsional, hapus kalo gak mau):
-    // document.getElementById('countText').innerHTML=`<b>${hari}</b> HARI • <b>${tahun} Tahun ${bulan} Bulan ${sisaBulan} Hari</b> Bersama`;
   }
   upd(); 
-  setInterval(upd, 1000); // update tiap 1 detik, jadi keliatan hidup
+  setInterval(upd, 1000);
 }
-
 let isPlaying=false;
 function toggleMusic(){
   const audio=document.getElementById('laguKita');
@@ -159,7 +156,6 @@ function toggleMusic(){
     });
   }
 }
-
 function showTab(t){
   document.querySelectorAll('.menu button').forEach(b=>b.classList.remove('active'));
   document.getElementById('btn'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active');
@@ -167,13 +163,44 @@ function showTab(t){
   document.getElementById('tabVideo').style.display=t==='video'?'grid':'none';
   document.getElementById('tabSurat').style.display=t==='surat'?'block':'none';
 }
-
+function openImage(url, name){
+  const lb=document.getElementById('lightbox');
+  const img=document.getElementById('lb-img');
+  const vid=document.getElementById('lb-video');
+  const cap=document.getElementById('lb-cap');
+  vid.pause(); vid.style.display='none';
+  img.src=url; img.style.display='block';
+  cap.textContent=name||'';
+  lb.classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function openVideo(url, name){
+  const lb=document.getElementById('lightbox');
+  const img=document.getElementById('lb-img');
+  const vid=document.getElementById('lb-video');
+  const cap=document.getElementById('lb-cap');
+  img.style.display='none';
+  vid.src=url; vid.style.display='block'; vid.currentTime=0; vid.play();
+  cap.textContent=name||'';
+  lb.classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(e){
+  const lb=document.getElementById('lightbox');
+  const vid=document.getElementById('lb-video');
+  if(e && e.target && e.target.closest && e.target.closest('.lb-inner') && e.target.id!=='lb-img' && e.target.id!=='lb-video'){
+    return;
+  }
+  vid.pause();
+  lb.classList.remove('active');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown', function(ev){ if(ev.key==='Escape'){ closeLightbox(ev); } });
 async function loadAll(){
   await loadFromGitHub('foto','tabFoto',true);
   await loadFromGitHub('video','tabVideo',false);
   await loadSurat();
 }
-
 async function loadFromGitHub(folder, tabId, isImg){
   const el=document.getElementById(tabId);
   try{
@@ -185,32 +212,17 @@ async function loadFromGitHub(folder, tabId, isImg){
     el.innerHTML='';
     media.reverse().forEach(f=>{
       const url=`https://raw.githubusercontent.com/${CONFIG.user}/${CONFIG.repo}/main/${folder}/${encodeURIComponent(f.name)}`;
+      const safeName = f.name.replace(/'/g, "&#39;");
       if(isImg){
-        el.innerHTML+=`<div class="card"><img src="${url}" loading="lazy"><div class="cap"><span>${f.name}</span></div></div>`;
+        el.innerHTML+=`<div class="card" onclick="openImage('${url}', '${safeName}')"><img src="${url}" loading="lazy" style="cursor:zoom-in"><div class="cap"><span>${f.name}</span></div></div>`;
       } else {
-        // FIX VIDEO GAK HITAM LAGI - INI KUNCINYA
-        el.innerHTML+=`
-        <div class="card">
-          <video 
-            src="${url}" 
-            preload="metadata" 
-            muted 
-            playsinline 
-            disablepictureinpicture
-            onloadedmetadata="this.currentTime=0.3"
-            onseeked="this.pause()"
-            onclick="this.paused ? this.play() : this.pause()"
-          ></video>
-          <div class="play-icon">▶</div>
-          <div class="cap"><span>${f.name}</span></div>
-        </div>`;
+        el.innerHTML+=`<div class="card" onclick="openVideo('${url}', '${safeName}')"><video src="${url}" preload="metadata" muted playsinline disablepictureinpicture onloadedmetadata="this.currentTime=0.3" onseeked="this.pause()" style="cursor:zoom-in;pointer-events:none"></video><div class="play-icon">▶</div><div class="cap"><span>${f.name}</span></div></div>`;
       }
     });
   }catch(e){
     el.innerHTML=`<div class="empty">Folder ${folder} belum ada isinya. Upload foto pertama!</div>`;
   }
 }
-
 async function loadSurat(){
   const el=document.getElementById('tabSurat');
   try{

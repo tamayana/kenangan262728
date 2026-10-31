@@ -52,7 +52,7 @@ body{background:var(--black);color:var(--white);font-family:'Poppins',sans-serif
 </head>
 <body>
 <div id="particles"></div>
-<audio id="laguKita" loop preload="auto" src="https://raw.githubusercontent.com/tamayana/kenangan262728/main/satu-bulan.mp3"></audio>
+<audio id="laguKita" loop preload="auto" src="https://raw.githubusercontent.com/tamayana/kenangan262728/main/komang.mp3"></audio>
 
 <div id="lock">
   <div class="lock-card">
@@ -73,7 +73,7 @@ body{background:var(--black);color:var(--white);font-family:'Poppins',sans-serif
 
   <div class="music">
     <img src="https://picsum.photos/seed/bernadya/100">
-    <div class="info"><div>Bernadya - Satu Bulan</div><div id="musicStatus">Lagu kita • Klik play</div></div>
+    <div class="info"><div>Raim laode - komang</div><div id="musicStatus">Lagu kita • Klik play</div></div>
     <button id="musicBtn" onclick="toggleMusic()">▶</button>
   </div>
 
@@ -152,7 +152,7 @@ function toggleMusic(){
     audio.volume=1;
     audio.play().then(()=>{
       btn.innerText='⏸';
-      status.innerText='Memutar... Bernadya - Satu Bulan 💙';
+      status.innerText='Memutar... Raim laode - Komang 💙';
       isPlaying=true;
     }).catch(e=>{
       alert('Klik sekali lagi ya, iPhone butuh izin play');
